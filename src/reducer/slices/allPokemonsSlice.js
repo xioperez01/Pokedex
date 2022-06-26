@@ -6,6 +6,8 @@ export const AllPokemonsSlice = createSlice({
   initialState: {
     allPokemonsList: undefined,
     isLoading: false,
+    pokemonsPerView: 15,
+    viewType: 'table',
   },
   reducers: {
     setAllPokemonsList: (state, action) => {
@@ -15,10 +17,23 @@ export const AllPokemonsSlice = createSlice({
     toggleIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
+
+    toggleViewType: (state, action) => {
+      state.viewType = action.payload;
+    },
+
+    togglePokemonsPerView: (state, action) => {
+      state.pokemonsPerView = action.payload;
+    },
   },
 });
 
-export const { setAllPokemonsList, toggleIsLoading } = AllPokemonsSlice.actions;
+export const {
+  setAllPokemonsList,
+  toggleIsLoading,
+  togglePokemonsPerView,
+  toggleViewType,
+} = AllPokemonsSlice.actions;
 export default AllPokemonsSlice.reducer;
 
 //
@@ -28,11 +43,7 @@ export const fetchPokemons = () => dispatch => {
   axios
     .get('https://pokeapi.co/api/v2/generation/1/')
     .then(response => {
-      dispatch(
-        setAllPokemonsList(
-          response.data.pokemon_species.sort((a, b) => a.id - b.id)
-        )
-      );
+      dispatch(setAllPokemonsList(response.data.pokemon_species));
       toggleIsLoading(false);
     })
     .catch(error => console.error(error));

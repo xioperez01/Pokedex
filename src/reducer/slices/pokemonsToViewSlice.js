@@ -16,29 +16,18 @@ export const PokemonsToViewSlice = createSlice({
       ];
     },
 
-    showLessPokemons: (state, action) => {
-      state.pokemonsToViewList = [
-        ...state.pokemonsToViewList,
-        ...action.payload,
-      ];
-    },
-
-    handleNext: (state, action) => {
-      state.pokemonsToViewList = [(state.next = action.payload)];
-    },
-
-    handlePrev: (state, action) => {
-      state.prev = action.payload;
+    showInitialPokemons: (state, action) => {
+      state.pokemonsToViewList = [...action.payload];
     },
   },
 });
 
-export const { showMorePomkemons, showLessPokemons, handleNext, handlePrev } =
+export const { showMorePomkemons, showInitialPokemons } =
   PokemonsToViewSlice.actions;
 
 export default PokemonsToViewSlice.reducer;
 
-export const addPokemonsToView = newPokemonsToView => dispatch => {
+export const addPokemonsToView = (newPokemonsToView, isInitial) => dispatch => {
   async function getPokemon(name) {
     const data = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/`);
     return data;
@@ -49,6 +38,8 @@ export const addPokemonsToView = newPokemonsToView => dispatch => {
   ).then(response => {
     const data = response.map(d => d.data);
     console.log(data);
-    dispatch(showMorePomkemons(data));
+    isInitial
+      ? dispatch(showInitialPokemons(data))
+      : dispatch(showMorePomkemons(data));
   });
 };
