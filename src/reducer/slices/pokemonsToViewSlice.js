@@ -4,7 +4,7 @@ import axios from 'axios';
 export const PokemonsToViewSlice = createSlice({
   name: 'pokemonsToView',
   initialState: {
-    pokemonsToViewList: [],
+    pokemonsToViewList: undefined,
   },
   reducers: {
     showMorePomkemons: (state, action) => {
@@ -33,7 +33,7 @@ export const addPokemonsToView = pokemonsList => dispatch => {
     return data;
   }
 
-  Promise.all(pokemonsList.map(pokemon => getPokemon(pokemon.name))).then(
+  Promise.all(pokemonsList?.map(pokemon => getPokemon(pokemon?.name))).then(
     response => {
       const data = response.map(d => d.data);
       dispatch(showMorePomkemons(data));
