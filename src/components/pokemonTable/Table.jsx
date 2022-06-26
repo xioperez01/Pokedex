@@ -6,7 +6,6 @@ import {
   Th,
   Td,
   TableContainer,
-  Box,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { handlePokemonSelected } from '../../reducer/slices/pokemonSelectedSlice';
@@ -22,11 +21,10 @@ export const PokemonsTable = () => {
       w="100%"
       h="calc(100vh - 190px)"
       overflowY="auto"
-      //onScroll={e => console.log(e)}
     >
       <Table variant="simple" borderWidth="1px">
         <Thead>
-          <Tr>
+          <Tr bgColor="gray.100">
             <Th>name</Th>
             <Th>height(m)</Th>
             <Th>weight(kg)</Th>
@@ -37,6 +35,12 @@ export const PokemonsTable = () => {
             <Tr
               key={pokemon.name}
               onClick={() => dispatch(handlePokemonSelected(pokemon))}
+              bgColor="white"
+              _hover={{
+                cursor: 'pointer',
+                bgColor: 'blackAlpha.200',
+                transition: 'all 0.3s',
+              }}
             >
               <Td>{pokemon.name}</Td>
               <Td>{pokemon.height / 10}</Td>

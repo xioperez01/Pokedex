@@ -37,7 +37,6 @@ export const addPokemonsToView = (newPokemonsToView, isInitial) => dispatch => {
     newPokemonsToView?.map(pokemon => getPokemon(pokemon?.name))
   ).then(response => {
     const data = response.map(d => d.data);
-    console.log(data);
     isInitial
       ? dispatch(showInitialPokemons(data))
       : dispatch(showMorePomkemons(data));

@@ -15,7 +15,12 @@ export const ListCard = ({ pokemon }) => {
       rounded="xl"
       border="1px"
       onClick={() => dispatch(handlePokemonSelected(pokemon))}
-      zIndex={10}
+      bgColor="white"
+      _hover={{
+        cursor: 'pointer',
+        bgColor: 'blackAlpha.200',
+        transition: 'all 0.3s',
+      }}
     >
       <Image
         w="30px"

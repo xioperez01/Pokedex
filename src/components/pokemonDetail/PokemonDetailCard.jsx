@@ -38,6 +38,7 @@ export const PokemonDetailCard = () => {
       />
       <Image
         w="10vw"
+        maxW="115px"
         src={pokemonSelected?.sprites.other['official-artwork'].front_default}
       />
       <Text textAlign="center" w="100%">
@@ -63,7 +64,7 @@ export const PokemonDetailCard = () => {
           </Text>
           <Stack direction="row">
             {pokemonSelected?.types?.map(t => (
-              <Badge key={t?.type?.name} variant="solid" colorScheme="green">
+              <Badge key={t?.type?.name} variant="solid" colorScheme="red">
                 {t?.type?.name}
               </Badge>
             ))}

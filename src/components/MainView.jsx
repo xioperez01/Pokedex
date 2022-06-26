@@ -65,19 +65,15 @@ export const MainView = () => {
 
   const handlReset = () => {
     dispatch(handlePokemonSelected(undefined));
-    dispatch(togglePokemonsPerView(15));
-    dispatch(toggleViewType('table'));
     dispatch(
       addPokemonsToView(allPokemonsList.slice(0, pokemonsPerView), true)
     );
   };
 
-  console.log(pokemonSelected);
-
   return (
     <VStack h="100vh" w="100vw" p={4} spacing={4}>
       <Box h="50px">
-        <Heading>Bienvenido a la Pokedex</Heading>
+        <Heading>Weolcome to Pokedex</Heading>
       </Box>
       <Flex direction="row" w="100%" maxW="1200px">
         <Icon
@@ -91,7 +87,7 @@ export const MainView = () => {
           as={BsFillGridFill}
           boxSize={5}
           mx={4}
-          onClick={() => handleViewType('grid', 30)}
+          onClick={() => handleViewType('grid', 9)}
           _hover={{ cursor: 'pointer' }}
           color={viewType === 'grid' && 'purple'}
         />
@@ -133,7 +129,7 @@ export const MainView = () => {
               </Button>
             </ButtonGroup>
           </Box>
-          <Box w="40%" h="calc(100vh - 134px)">
+          <Box w={pokemonSelected ? '40%' : '0'} h="calc(100vh - 134px)">
             {pokemonSelected && <PokemonDetailCard />}
           </Box>
         </HStack>

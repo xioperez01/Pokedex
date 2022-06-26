@@ -5,6 +5,7 @@ export const PokemonSelectedSlice = createSlice({
   name: 'pokemonSelected',
   initialState: {
     pokemonSelected: undefined,
+    isLoading: false,
   },
   reducers: {
     selectPokemon: (state, action) => {
@@ -50,7 +51,6 @@ export default PokemonSelectedSlice.reducer;
 
 export const handlePokemonSelected = pokemonSelected => dispatch => {
   if (pokemonSelected) {
-    console.log('Aqui');
     dispatch(selectPokemon(pokemonSelected));
 
     // Update Locations

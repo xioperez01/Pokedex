@@ -1,27 +1,11 @@
 import { SimpleGrid } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { handlePokemonSelected } from '../../reducer/slices/pokemonSelectedSlice';
-import { addPokemonsToView } from '../../reducer/slices/pokemonsToViewSlice';
+import { useSelector } from 'react-redux';
 import { ListCard } from './ListCard';
+import { GaleryCard } from './GaleryCard';
 
 export const ViewsContainer = () => {
   const { pokemonsToViewList } = useSelector(state => state.pokemonsToView);
-
-  const { allPokemonsList } = useSelector(state => state.allPokemons);
-  const dispatch = useDispatch();
-
-  const pokemonsPerView = 15;
-
-  const handleNext = () => {
-    dispatch(
-      addPokemonsToView(
-        allPokemonsList?.slice(
-          pokemonsToViewList?.length,
-          pokemonsToViewList?.length + pokemonsPerView
-        )
-      )
-    );
-  };
+  const { viewType } = useSelector(state => state.allPokemons);
 
   return (
     <SimpleGrid
@@ -32,9 +16,13 @@ export const ViewsContainer = () => {
       spacing={1}
       pb={4}
     >
-      {pokemonsToViewList.map(pokemon => (
-        <ListCard pokemon={pokemon} />
-      ))}
+      {pokemonsToViewList.map(pokemon =>
+        viewType === 'list' ? (
+          <ListCard pokemon={pokemon} />
+        ) : (
+          <GaleryCard pokemon={pokemon} />
+        )
+      )}
     </SimpleGrid>
   );
 };
