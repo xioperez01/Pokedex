@@ -15,13 +15,6 @@ export const PokemonSelectedSlice = createSlice({
       state.pokemonSelected = action.payload;
     },
 
-    updatePokemonSelectedImg: (state, action) => {
-      state.pokemonSelected = {
-        ...state.pokemonSelected,
-        img: action.payload,
-      };
-    },
-
     updatePokemonSelectedLocation: (state, action) => {
       state.pokemonSelected = {
         ...state.pokemonSelected,
@@ -48,7 +41,6 @@ export const PokemonSelectedSlice = createSlice({
 export const {
   selectPokemon,
   unSelectPokemon,
-  updatePokemonSelectedImg,
   updatePokemonSelectedLocation,
   updatePokemonSelectedCategory,
   updatePokemonSelectedDescription,
@@ -58,17 +50,7 @@ export default PokemonSelectedSlice.reducer;
 
 export const handlePokemonSelected = pokemonSelected => dispatch => {
   if (pokemonSelected) {
-    const id = pokemonSelected.order.toString();
-
     dispatch(selectPokemon(pokemonSelected));
-    // Update Image
-    dispatch(
-      updatePokemonSelectedImg(
-        `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${
-          id.length === 1 ? `00${id}` : id.length === 2 ? `0${id}` : id
-        }.png`
-      )
-    );
 
     // Update Locations
     axios.get(pokemonSelected?.location_area_encounters).then(response => {
@@ -91,9 +73,12 @@ export const handlePokemonSelected = pokemonSelected => dispatch => {
           response.data.genera.filter(g => g?.language?.name === 'en')[0].genus
         )
       );
+      //update Description
       dispatch(
         updatePokemonSelectedDescription(
-          response.data.flavor_text_entries[0].flavor_text
+          response.data.flavor_text_entries.filter(
+            description => description.language.name === 'en'
+          )[0].flavor_text
         )
       );
     });

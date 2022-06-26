@@ -14,7 +14,10 @@ export const PokemonDetailCard = () => {
 
   return (
     <VStack h="100%" w="100%" p={2} spacing={2}>
-      <Image w="10vw" src={pokemonSelected?.img} />
+      <Image
+        w="10vw"
+        src={pokemonSelected?.sprites.other['official-artwork'].front_default}
+      />
       <Text w="50%">{pokemonSelected?.description}</Text>
       <Text>{pokemonSelected?.category}</Text>
       <Text>Type</Text>

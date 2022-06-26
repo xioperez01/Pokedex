@@ -28,7 +28,11 @@ export const fetchPokemons = () => dispatch => {
   axios
     .get('https://pokeapi.co/api/v2/generation/1/')
     .then(response => {
-      dispatch(setAllPokemonsList(response.data.pokemon_species));
+      dispatch(
+        setAllPokemonsList(
+          response.data.pokemon_species.sort((a, b) => a.id - b.id)
+        )
+      );
       toggleIsLoading(false);
     })
     .catch(error => console.error(error));
